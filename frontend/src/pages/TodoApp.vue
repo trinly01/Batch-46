@@ -1,5 +1,5 @@
 <template>
-  <q-toolbar class="bg-primary text-white">
+  <q-toolbar class="bg-teal text-white">
     <q-btn flat round dense icon="menu" class="q-mr-sm" />
     <q-avatar>
       <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
@@ -13,7 +13,7 @@
   <q-list bordered separator>
     <q-item clickable v-ripple >
       <q-item-section avatar>
-        <q-checkbox :modelValue="true" />
+        <q-checkbox color="teal" :modelValue="true" />
       </q-item-section>
       <q-item-section>Active</q-item-section>
       <q-item-section side>
@@ -37,7 +37,7 @@
       </q-item-section>
       <q-item-section>Active, Active class</q-item-section>
       <q-item-section side>
-        <q-btn icon="delete" round dense color="red" />
+        <q-btn icon="close" round dense color="red" />
       </q-item-section>
     </q-item>
   </q-list>
