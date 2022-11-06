@@ -1,5 +1,5 @@
 <template>
-  <h6>
+  <h6 class="header">
     Todos
   </h6>
   <input type="text" />
@@ -11,3 +11,9 @@
     <li>zxcsfsdfs dsdf sdf d</li>
   </ul>
 </template>
+
+<style>
+.header {
+  color: pink;
+}
+</style>
