@@ -1,5 +1,13 @@
 <template>
-  <h1>
+  <h6>
     Todos
-  </h1>
+  </h6>
+  <input type="text" />
+  <ul>
+    <li>zxcsfsdfs dsdf sdf d</li>
+    <li>zxcsfsdfs dsdf sdf d</li>
+    <li>zxcsfsdfs dsdf sdf d</li>
+    <li>zxcsfsdfs dsdf sdf d</li>
+    <li>zxcsfsdfs dsdf sdf d</li>
+  </ul>
 </template>
