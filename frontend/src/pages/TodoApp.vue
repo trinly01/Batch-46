@@ -106,7 +106,7 @@ function add () {
 
   console.log('todos', data.todos)
 
-  data.todos.push({
+  data.todos.unshift({
     _id: Date.now(),
     isDone: false,
     task: task.value
