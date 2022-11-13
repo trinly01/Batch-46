@@ -24,6 +24,9 @@
       </q-item-section>
     </q-item>
   </q-list>
+  <div class="q-pa-lg">
+    {{ itemsLeft }} item{{ itemsLeft !== 1 ? 's' : '' }} left
+  </div>
 </template>
 
 <style>
@@ -34,7 +37,7 @@
 
 <script setup>
 
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 
 const task = ref('hello world')
 
@@ -54,6 +57,8 @@ const data = reactive({
     }
   ]
 })
+
+const itemsLeft = computed(() => data.todos.filter(t => !t.isDone).length)
 
 const batch = 46
 
