@@ -62,6 +62,10 @@ const batch = 46
 
 function add () {
   console.log(task.value)
+
+  console.log(sum(2, '2'))
 }
+
+const sum = (num, num2) => num + +num2
 
 </script>
