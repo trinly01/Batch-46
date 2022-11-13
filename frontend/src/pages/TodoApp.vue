@@ -5,7 +5,7 @@
       <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
     </q-avatar>
 
-    <q-toolbar-title>Batch {{ batch }} {{ task }}</q-toolbar-title>
+    <q-toolbar-title>Batch {{ batch }}</q-toolbar-title>
 
     <q-btn flat round dense icon="whatshot" />
   </q-toolbar>
@@ -58,11 +58,20 @@
 
 import { ref, reactive, computed } from 'vue'
 
-const task = ref('hello world')
+const task = ref('')
 
 const view = ref('all')
 
-const batch = 46
+const filteredTodos = computed(() => {
+  switch (view.value) {
+    case 'active':
+      return data.todos.filter(t => !t.isDone)
+    case 'completed':
+      return data.todos.filter(t => t.isDone)
+    default:
+      return data.todos
+  }
+})
 
 const data = reactive({
   something: 'valuable',
@@ -83,15 +92,7 @@ const data = reactive({
 
 const itemsLeft = computed(() => data.todos.filter(t => !t.isDone).length)
 
-const filteredTodos = computed(() => {
-  const viewType = {
-    all: data.todos,
-    completed: data.todos.filter(t => t.isDone),
-    active: data.todos.filter(t => !t.isDone)
-  }
-
-  return viewType[view.value]
-})
+const batch = 46
 
 const remove = (i) => data.todos.splice(i, 1)
 
