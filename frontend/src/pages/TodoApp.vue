@@ -62,16 +62,7 @@ const task = ref('hello world')
 
 const view = ref('all')
 
-const filteredTodos = computed(() => {
-  switch (view.value) {
-    case 'active':
-      return data.todos.filter(t => !t.isDone)
-    case 'completed':
-      return data.todos.filter(t => t.isDone)
-    default:
-      return data.todos
-  }
-})
+const batch = 46
 
 const data = reactive({
   something: 'valuable',
@@ -92,7 +83,15 @@ const data = reactive({
 
 const itemsLeft = computed(() => data.todos.filter(t => !t.isDone).length)
 
-const batch = 46
+const filteredTodos = computed(() => {
+  const viewType = {
+    all: data.todos,
+    completed: data.todos.filter(t => t.isDone),
+    active: data.todos.filter(t => !t.isDone)
+  }
+
+  return viewType[view.value]
+})
 
 const remove = (i) => data.todos.splice(i, 1)
 
