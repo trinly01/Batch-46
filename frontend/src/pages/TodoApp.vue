@@ -63,13 +63,14 @@ const task = ref('hello world')
 const view = ref('all')
 
 const filteredTodos = computed(() => {
-  if (view.value === 'active') {
-    return data.todos.filter(t => !t.isDone)
-  } else if (view.value === 'completed') {
-    return data.todos.filter(t => t.isDone)
+  switch (view.value) {
+    case 'active':
+      return data.todos.filter(t => !t.isDone)
+    case 'completed':
+      return data.todos.filter(t => t.isDone)
+    default:
+      return data.todos
   }
-
-  return data.todos
 })
 
 const data = reactive({
