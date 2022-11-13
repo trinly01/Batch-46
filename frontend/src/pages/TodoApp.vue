@@ -10,17 +10,17 @@
     <q-btn flat round dense icon="whatshot" />
   </q-toolbar>
   <div class="row">
-    <q-input class="col" outlined v-model="task" label="Outlined" @keyup.enter="add" />
+    <q-input class="col" outlined v-model="task" label="Task" @keyup.enter="add" />
     <q-btn label="add" @click="add" />
   </div>
   <q-list bordered separator>
-    <q-item clickable v-ripple v-for="todo in data.todos" :key="todo._id">
+    <q-item clickable v-ripple v-for="(todo, i) in data.todos" :key="todo._id">
       <q-item-section avatar>
         <q-checkbox color="teal" v-model="todo.isDone" />
       </q-item-section>
-      <q-item-section>{{ todo.task }}</q-item-section>
+      <q-item-section>{{ i }} {{ todo.task }}</q-item-section>
       <q-item-section side>
-        <q-btn icon="delete" round dense color="red" />
+        <q-btn icon="delete" round dense color="red" @click="remove(i)" />
       </q-item-section>
     </q-item>
   </q-list>
@@ -56,6 +56,8 @@ const data = reactive({
 })
 
 const batch = 46
+
+const remove = (i) => data.todos.splice(i, 1)
 
 function add () {
   console.log('task', task.value)
