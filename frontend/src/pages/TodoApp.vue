@@ -5,11 +5,11 @@
       <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
     </q-avatar>
 
-    <q-toolbar-title>Batch {{ batch }} {{ hello }}</q-toolbar-title>
+    <q-toolbar-title>Batch {{ batch }} {{ task }}</q-toolbar-title>
 
     <q-btn flat round dense icon="whatshot" />
   </q-toolbar>
-  <q-input outlined modelValue="text" label="Outlined" />
+  <q-input outlined v-model="task" label="Outlined" />
   <q-list bordered separator>
     <q-item clickable v-ripple >
       <q-item-section avatar>
@@ -51,7 +51,9 @@
 
 <script setup>
 
-const hello = 'hello world'
+import { ref } from 'vue'
+
+const task = ref('hello world')
 
 const batch = 46
 
