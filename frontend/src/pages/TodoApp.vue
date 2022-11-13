@@ -11,7 +11,7 @@
   </q-toolbar>
   <div class="row">
     <q-input class="col" outlined v-model="task" label="Outlined" @keyup.enter="add" />
-    <q-btn label="add" @click="add"  />
+    <q-btn label="add" @click="add" />
   </div>
   <q-list bordered separator>
     <q-item clickable v-ripple v-for="todo in data.todos" :key="todo._id">
@@ -56,7 +56,11 @@ const data = reactive({
 const batch = 46
 
 function add () {
-  console.log(task.value)
+  console.log('task', task.value)
+
+  console.log('todos', data.todos)
+
+  task.value = ''
 
   console.log(sum(2, '2'))
 }
