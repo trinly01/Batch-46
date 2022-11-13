@@ -19,12 +19,10 @@
         <q-checkbox color="teal" v-model="todo.isDone" />
       </q-item-section>
       <q-item-section>
-        <q-input ref="editInput" v-if="editing === i" type="text" v-model="editingText"
-          @blur="editing = -1"
-          @keyup.esc="editing = -1"
-          @keyup.enter="todo.task = editingText, editing = -1"
-        />
-        <span v-else @dblclick="editing = i, editingText = todo.task, focus()">{{ i }} {{ todo.task }}</span>
+        {{ i }} {{ todo.task }}
+        <q-popup-edit v-model="todo.task" auto-save v-slot="scope">
+          <q-input v-model="scope.value" dense autofocus counter @keyup.enter="scope.set" />
+        </q-popup-edit>
       </q-item-section>
       <q-item-section side>
         <q-btn icon="delete" round dense color="red" @click="remove(i)" />
@@ -63,22 +61,11 @@
 
 <script setup>
 
-import { ref, reactive, computed, nextTick } from 'vue'
+import { ref, reactive, computed } from 'vue'
 
 const task = ref('')
 
-const editing = ref(-1)
-
-const editInput = ref(null)
-
-const editingText = ref('')
-
 const view = ref('all')
-
-const focus = async () => {
-  await nextTick()
-  editInput.value[0].select()
-}
 
 const filteredTodos = computed(() => {
   switch (view.value) {
