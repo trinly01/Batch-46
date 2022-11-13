@@ -39,6 +39,8 @@ import { ref, reactive } from 'vue'
 const task = ref('hello world')
 
 const data = reactive({
+  something: 'valuable',
+  num: 123,
   todos: [
     {
       _id: 1,
@@ -59,6 +61,12 @@ function add () {
   console.log('task', task.value)
 
   console.log('todos', data.todos)
+
+  data.todos.push({
+    _id: Date.now(),
+    isDone: false,
+    task: task.value
+  })
 
   task.value = ''
 
