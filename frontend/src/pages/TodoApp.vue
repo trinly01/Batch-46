@@ -5,7 +5,7 @@
       <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
     </q-avatar>
 
-    <q-toolbar-title>Batch 46</q-toolbar-title>
+    <q-toolbar-title>Batch {{ batch }} {{ hello }}</q-toolbar-title>
 
     <q-btn flat round dense icon="whatshot" />
   </q-toolbar>
@@ -48,3 +48,11 @@
   color: pink;
 }
 </style>
+
+<script setup>
+
+const hello = 'hello world'
+
+const batch = 46
+
+</script>
