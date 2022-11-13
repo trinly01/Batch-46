@@ -18,7 +18,14 @@
       <q-item-section avatar>
         <q-checkbox color="teal" v-model="todo.isDone" />
       </q-item-section>
-      <q-item-section>{{ i }} {{ todo.task }}</q-item-section>
+      <q-item-section>
+        <q-input ref="editInput" v-if="editing === i" type="text" v-model="editingText"
+          @blur="editing = -1"
+          @keyup.esc="editing = -1"
+          @keyup.enter="todo.task = editingText, editing = -1"
+        />
+        <span v-else @dblclick="editing = i, editingText = todo.task, focus()">{{ i }} {{ todo.task }}</span>
+      </q-item-section>
       <q-item-section side>
         <q-btn icon="delete" round dense color="red" @click="remove(i)" />
       </q-item-section>
@@ -56,11 +63,22 @@
 
 <script setup>
 
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, nextTick } from 'vue'
 
 const task = ref('')
 
+const editing = ref(-1)
+
+const editInput = ref(null)
+
+const editingText = ref('')
+
 const view = ref('all')
+
+const focus = async () => {
+  await nextTick()
+  editInput.value[0].select()
+}
 
 const filteredTodos = computed(() => {
   switch (view.value) {
