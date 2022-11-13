@@ -10,8 +10,8 @@
     <q-btn flat round dense icon="whatshot" />
   </q-toolbar>
   <div class="row">
-    <q-input class="col" outlined v-model="task" label="Outlined" />
-    <q-btn label="add" @click="add" />
+    <q-input class="col" outlined v-model="task" label="Outlined" @keyup.enter="add" />
+    <q-btn label="add" @click="add"  />
   </div>
   <q-list bordered separator>
     <q-item clickable v-ripple >
