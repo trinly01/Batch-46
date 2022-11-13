@@ -9,7 +9,10 @@
 
     <q-btn flat round dense icon="whatshot" />
   </q-toolbar>
-  <q-input outlined v-model="task" label="Outlined" />
+  <div class="row">
+    <q-input class="col" outlined v-model="task" label="Outlined" />
+    <q-btn label="add" @click="add" />
+  </div>
   <q-list bordered separator>
     <q-item clickable v-ripple >
       <q-item-section avatar>
@@ -56,5 +59,9 @@ import { ref } from 'vue'
 const task = ref('hello world')
 
 const batch = 46
+
+function add () {
+  console.log(task.value)
+}
 
 </script>
