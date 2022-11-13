@@ -14,33 +14,13 @@
     <q-btn label="add" @click="add"  />
   </div>
   <q-list bordered separator>
-    <q-item clickable v-ripple >
+    <q-item clickable v-ripple v-for="todo in data.todos" :key="todo._id">
       <q-item-section avatar>
-        <q-checkbox color="teal" :modelValue="true" />
+        <q-checkbox color="teal" v-model="todo.isDone" />
       </q-item-section>
-      <q-item-section>Active</q-item-section>
+      <q-item-section>{{ todo.task }}</q-item-section>
       <q-item-section side>
         <q-btn icon="delete" round dense color="red" />
-      </q-item-section>
-    </q-item>
-
-    <q-item clickable v-ripple active-class="text-orange">
-      <q-item-section avatar>
-        <q-checkbox :modelValue="false" />
-      </q-item-section>
-      <q-item-section>Active, Active class</q-item-section>
-      <q-item-section side>
-        <q-btn icon="delete" round dense color="red" />
-      </q-item-section>
-    </q-item>
-
-    <q-item clickable v-ripple active-class="bg-teal-1 text-grey-8">
-      <q-item-section avatar>
-        <q-checkbox :modelValue="true" />
-      </q-item-section>
-      <q-item-section>Active, Active class</q-item-section>
-      <q-item-section side>
-        <q-btn icon="close" round dense color="red" />
       </q-item-section>
     </q-item>
   </q-list>
@@ -54,9 +34,24 @@
 
 <script setup>
 
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
 const task = ref('hello world')
+
+const data = reactive({
+  todos: [
+    {
+      _id: 1,
+      isDone: false,
+      task: 'Create add button'
+    },
+    {
+      _id: 2,
+      isDone: false,
+      task: 'Create add button'
+    }
+  ]
+})
 
 const batch = 46
 
