@@ -51,7 +51,8 @@
     <q-space/>
     <q-btn flat dense size="sm">clear completed</q-btn>
   </div>
-  <j-dexter :name="'John'" />
+  Parent {{ foods }}
+  <j-dexter :name="'John'" :foods="foods" @ateFood="anoKinainNiya" />
 </template>
 
 <style>
@@ -64,6 +65,15 @@
 
 import { ref, reactive, computed } from 'vue'
 import jDexter from 'src/components/jDexter.vue'
+
+function anoKinainNiya (data) {
+  console.log('kinain', data)
+
+  const index = foods.value.findIndex(food => food === data)
+  foods.value.splice(index, 1)
+}
+
+const foods = ref(['adobo', 'burger', 'pancit'])
 
 const task = ref('')
 
