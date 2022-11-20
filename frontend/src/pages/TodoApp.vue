@@ -51,6 +51,7 @@
     <q-space/>
     <q-btn flat dense size="sm">clear completed</q-btn>
   </div>
+  <jDexter />
 </template>
 
 <style>
@@ -62,6 +63,7 @@
 <script setup>
 
 import { ref, reactive, computed } from 'vue'
+import jDexter from 'src/components/jDexter.vue'
 
 const task = ref('')
 
