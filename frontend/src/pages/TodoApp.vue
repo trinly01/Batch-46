@@ -7,7 +7,7 @@
 
     <q-toolbar-title>Batch {{ batch }}</q-toolbar-title>
 
-    <q-btn flat round dense icon="whatshot" />
+    <q-btn flat round dense icon="print" @click="createPdf('print')" />
   </q-toolbar>
   <div class="row">
     <q-input class="col" outlined v-model="task" label="Task" @keyup.enter="add" />
@@ -64,8 +64,29 @@
 
 <script setup>
 
+import pdfMake from 'src/libs/pdfmake'
+
 import { ref, reactive, computed } from 'vue'
 import jDexter from 'src/components/jDexter.vue'
+
+const createPdf = (mode) => {
+  const dd = {
+    content: [
+      {
+        style: 'tableExample',
+        table: {
+          body: [
+            ['Task', 'isDone'],
+            // ['One value goes here', true],
+            // ['One value goes here', true],
+            ...data.todos.map(todo => [todo.task, todo.isDone])
+          ]
+        }
+      }
+    ]
+  }
+  pdfMake.createPdf(dd)[mode]()
+}
 
 function anoKinainNiya (data) {
   console.log('kinain', data)
