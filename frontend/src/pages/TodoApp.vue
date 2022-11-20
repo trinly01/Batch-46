@@ -51,6 +51,7 @@
     <q-space/>
     <q-btn flat dense size="sm">clear completed</q-btn>
   </div>
+  <pie-chart :donut="true" :data="[['Active', itemsLeft], ['Completed', filteredTodos.length - itemsLeft]]"></pie-chart>
   Parent {{ foods }} age {{ age }}
   <j-dexter :name="'John'" :foods="foods" @ateFood="anoKinainNiya" v-model="age" />
 </template>
