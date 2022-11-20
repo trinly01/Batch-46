@@ -51,7 +51,7 @@
     <q-space/>
     <q-btn flat dense size="sm">clear completed</q-btn>
   </div>
-  <jDexter />
+  <j-dexter :name="'John'" />
 </template>
 
 <style>
