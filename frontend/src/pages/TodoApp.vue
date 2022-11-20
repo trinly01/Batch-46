@@ -51,8 +51,8 @@
     <q-space/>
     <q-btn flat dense size="sm">clear completed</q-btn>
   </div>
-  Parent {{ foods }}
-  <j-dexter :name="'John'" :foods="foods" @ateFood="anoKinainNiya" />
+  Parent {{ foods }} age {{ age }}
+  <j-dexter :name="'John'" :foods="foods" @ateFood="anoKinainNiya" v-model="age" />
 </template>
 
 <style>
@@ -72,6 +72,8 @@ function anoKinainNiya (data) {
   const index = foods.value.findIndex(food => food === data)
   foods.value.splice(index, 1)
 }
+
+const age = ref(3)
 
 const foods = ref(['adobo', 'burger', 'pancit'])
 
