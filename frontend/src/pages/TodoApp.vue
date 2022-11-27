@@ -53,7 +53,7 @@
     <q-space/>
     <q-btn flat dense size="sm">clear completed</q-btn>
   </div>
-  <pie-chart :donut="true" :data="[['Active', itemsLeft], ['Completed', data.todos.length - itemsLeft]]"></pie-chart>
+  <pie-chart :donut="true" :data="[['Active', itemsLeft], ['Completed', store.todos.length - itemsLeft]]"></pie-chart>
   Parent {{ foods }} age {{ age }}
   <j-dexter :name="'John'" :foods="foods" @ateFood="anoKinainNiya" v-model="age" />
 </template>
@@ -68,7 +68,7 @@
 
 import pdfMake from 'src/libs/pdfmake'
 
-import { ref, reactive, computed } from 'vue'
+import { ref, computed } from 'vue'
 import jDexter from 'src/components/jDexter.vue'
 
 import wingsApp from 'src/libs/wings4.js'
@@ -95,7 +95,7 @@ const createPdf = (mode) => {
             ['Task', 'isDone'],
             // ['One value goes here', true],
             // ['One value goes here', true],
-            ...data.todos.map(todo => [todo.task, todo.isDone])
+            ...store.todos.map(todo => [todo.task, todo.isDone])
           ]
         }
       }
@@ -122,41 +122,46 @@ const view = ref('all')
 const filteredTodos = computed(() => {
   switch (view.value) {
     case 'active':
-      return data.todos.filter(t => !t.isDone)
+      return store.todos.filter(t => !t.isDone)
     case 'completed':
-      return data.todos.filter(t => t.isDone)
+      return store.todos.filter(t => t.isDone)
     default:
-      return data.todos
+      return store.todos
   }
 })
 
-const data = reactive({
-  something: 'valuable',
-  num: 123,
-  todos: [
-    {
-      _id: 1,
-      isDone: false,
-      task: 'Create add button'
-    },
-    {
-      _id: 2,
-      isDone: false,
-      task: 'Create add button'
-    }
-  ]
-})
+// const data = reactive({
+//   something: 'valuable',
+//   num: 123,
+//   todos: [
+//     {
+//       _id: 1,
+//       isDone: false,
+//       task: 'Create add button'
+//     },
+//     {
+//       _id: 2,
+//       isDone: false,
+//       task: 'Create add button'
+//     }
+//   ]
+// })
 
-const todosSrvc = wingsApp.wingsService('todos')
+const todosSrvc = wingsApp.wingsService('tasks')
+
+wingsApp.on('login', () => {
+  todosSrvc.reset()
+  todosSrvc.init()
+})
 
 todosSrvc.on('dataChange', todos => {
   console.log('changed', todos)
-  data.todos = [...todos]
+  store.todos = [...todos]
 })
 
 todosSrvc.init()
 
-const itemsLeft = computed(() => data.todos.filter(t => !t.isDone).length)
+const itemsLeft = computed(() => store.todos.filter(t => !t.isDone).length)
 
 const batch = 46
 
@@ -180,9 +185,9 @@ async function updateTask (todo, update, scope) {
 async function add () {
   console.log('task', task.value)
 
-  console.log('todos', data.todos)
+  console.log('todos', store.todos)
 
-  // data.todos.unshift({
+  // store.todos.unshift({
   //   _id: Date.now(),
   //   isDone: false,
   //   task: task.value

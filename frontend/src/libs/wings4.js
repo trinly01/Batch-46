@@ -12,6 +12,8 @@ app.authenticate()
 
 app.on('logout', (user) => {
   store.user = null
+
+  store.todos = []
 })
 
 export default app
