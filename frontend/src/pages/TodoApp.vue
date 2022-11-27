@@ -69,6 +69,8 @@ import pdfMake from 'src/libs/pdfmake'
 import { ref, reactive, computed } from 'vue'
 import jDexter from 'src/components/jDexter.vue'
 
+import wingsApp from 'src/libs/wings4.js'
+
 const createPdf = (mode) => {
   const dd = {
     content: [
@@ -130,6 +132,14 @@ const data = reactive({
     }
   ]
 })
+
+const todosSrvc = wingsApp.wingsService('todos')
+
+todosSrvc.on('dataChange', todos => {
+  data.todos = todos
+})
+
+todosSrvc.init()
 
 const itemsLeft = computed(() => data.todos.filter(t => !t.isDone).length)
 
