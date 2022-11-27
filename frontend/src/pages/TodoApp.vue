@@ -136,7 +136,8 @@ const data = reactive({
 const todosSrvc = wingsApp.wingsService('todos')
 
 todosSrvc.on('dataChange', todos => {
-  data.todos = todos
+  console.log('changed', todos)
+  data.todos = [...todos]
 })
 
 todosSrvc.init()
@@ -154,13 +155,18 @@ function toggleStatus (todo) {
 
 const remove = (i) => data.todos.splice(i, 1)
 
-function add () {
+async function add () {
   console.log('task', task.value)
 
   console.log('todos', data.todos)
 
-  data.todos.unshift({
-    _id: Date.now(),
+  // data.todos.unshift({
+  //   _id: Date.now(),
+  //   isDone: false,
+  //   task: task.value
+  // })
+
+  await todosSrvc.create({
     isDone: false,
     task: task.value
   })
