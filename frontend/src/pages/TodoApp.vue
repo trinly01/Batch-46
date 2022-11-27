@@ -16,7 +16,7 @@
   <q-list bordered separator>
     <q-item clickable v-ripple v-for="(todo, i) in filteredTodos" :key="todo._id">
       <q-item-section avatar>
-        <q-checkbox color="teal" v-model="todo.isDone" />
+        <q-checkbox color="teal" :modelValue="todo.isDone" @click="toggleStatus(todo)" />
       </q-item-section>
       <q-item-section>
         {{ i }} {{ todo.task }}
@@ -144,6 +144,13 @@ todosSrvc.init()
 const itemsLeft = computed(() => data.todos.filter(t => !t.isDone).length)
 
 const batch = 46
+
+function toggleStatus (todo) {
+  console.log('toggled')
+  todosSrvc.patch(todo._id, {
+    isDone: !todo.isDone
+  })
+}
 
 const remove = (i) => data.todos.splice(i, 1)
 
