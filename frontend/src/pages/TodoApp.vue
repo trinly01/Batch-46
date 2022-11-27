@@ -21,11 +21,11 @@
       <q-item-section>
         {{ i }} {{ todo.task }}
         <q-popup-edit v-model="todo.task" auto-save v-slot="scope">
-          <q-input v-model="scope.value" dense autofocus counter @keyup.enter="scope.set" />
+          <q-input v-model="scope.value" dense autofocus counter @keyup.enter="updateTask(todo, scope.value, scope)" />
         </q-popup-edit>
       </q-item-section>
       <q-item-section side>
-        <q-btn icon="delete" round dense color="red" @click="remove(i)" />
+        <q-btn icon="delete" round dense color="red" @click="remove(todo._id)" />
       </q-item-section>
     </q-item>
   </q-list>
@@ -153,7 +153,15 @@ function toggleStatus (todo) {
   })
 }
 
-const remove = (i) => data.todos.splice(i, 1)
+const remove = async (i) => await todosSrvc.remove(i)
+
+async function updateTask (todo, update, scope) {
+  await todosSrvc.patch(todo._id, {
+    task: update
+  })
+  scope.cancel()
+  console.log('scope', scope)
+}
 
 async function add () {
   console.log('task', task.value)
