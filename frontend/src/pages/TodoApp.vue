@@ -7,6 +7,8 @@
 
     <q-toolbar-title>Batch {{ batch }}</q-toolbar-title>
 
+    <q-btn v-if="store.user" :label="store.user.email" @click="wingsApp.logout" flat dense icon="logout" />
+    <q-btn v-else flat round dense icon="login" @click="login" />
     <q-btn flat round dense icon="print" @click="createPdf('print')" />
   </q-toolbar>
   <div class="row">
@@ -70,6 +72,18 @@ import { ref, reactive, computed } from 'vue'
 import jDexter from 'src/components/jDexter.vue'
 
 import wingsApp from 'src/libs/wings4.js'
+
+import store from 'src/store/store.js'
+
+const login = () => {
+  wingsApp.authenticate({
+    email: 'trin@pogi.com',
+    password: 'gwaping',
+    strategy: 'local'
+  })
+
+  // console.log('user', user)
+}
 
 const createPdf = (mode) => {
   const dd = {
